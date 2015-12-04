@@ -1,0 +1,20 @@
+#!/bin/bash
+
+AGENT_ENV=~/.ssh/sshagent.env
+LOCAL_SSH_KEY=~/.ssh/local
+
+# start openssh server
+service ssh start
+
+# setup ssh-agent and add the local ssh key
+if [ ! -f $AGENT_ENV ]; then
+    ssh-agent >$AGENT_ENV
+    source $AGENT_ENV
+    ssh-add $LOCAL_SSH_KEY
+else
+    source $AGENT_ENV
+fi
+
+# start spark-standalone master and worker processes 
+/usr/spark/sbin/start-all.sh 
+
