@@ -4,7 +4,7 @@ MAINTAINER Shreyas Kulkarni
 # OpenSSH connection is needed for spark master to talk to workers
 # we also need git and vim 
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get -qq -y install openssh-server git vim \
+    && DEBIAN_FRONTEND=noninteractive apt-get -qq -y install openssh-server git vim wget \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
