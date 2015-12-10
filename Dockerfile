@@ -4,7 +4,13 @@ MAINTAINER Shreyas Kulkarni
 # OpenSSH connection is needed for spark master to talk to workers
 # we also need git and vim 
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get -qq -y install openssh-server git vim wget \
+    && DEBIAN_FRONTEND=noninteractive apt-get -qq -y install openssh-server git vim wget apt-transport-https
+
+# install sbt
+RUN echo "deb https://dl.bintray.com/sbt/debian /" >>/etc/apt/sources.list.d/sbt.list \
+    && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823 \
+    && apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get -qq -y install sbt \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
