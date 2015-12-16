@@ -15,6 +15,13 @@ RUN echo "deb https://dl.bintray.com/sbt/debian /" >>/etc/apt/sources.list.d/sbt
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# install conscript and giter8
+RUN curl https://raw.githubusercontent.com/n8han/conscript/master/setup.sh | sh \
+    && /root/bin/cs n8han/giter8
+
+# set PATH to include /root/bin since that's where many scala tools will be resting (cs, g8 etc)
+ENV PATH "$PATH:/root/bin"
+
 # start openssh server
 #RUN service ssh start
 
